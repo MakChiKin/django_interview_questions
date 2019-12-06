@@ -4,3 +4,4 @@
 3. 可以在浏览器中直接查看 http://note.youdao.com/noteshare?id=c16d3e59263823bfc32ea00b95123882
 4. 希望能帮助有需要的面试官、面试者和热爱Django的开发者。
 5. 此处会持续更新...
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575656862474&di=5f104155aed0494560f522587092b15c&imgtype=jpg&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2Fw1280h720%2F20171204%2Fqa_i-fypikwt6342432.jpg"  align=center>
