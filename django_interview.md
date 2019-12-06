@@ -1,5 +1,8 @@
 # 目录 <span id="目录"></span>
-@[TOC]
+
+[欢迎前往GitHub贡献自己的问题和答案](https://github.com/MakChiKin/django_interview_questions)  
+
+[TOC]
 # HTTP模块 
 共16个常见面试题 <br>`HTTP` `HTTPS` `TCP` `UDP` `COOKIE` `SESSION` `PYTHON` 
 ## 01.HTTP是什么
@@ -406,6 +409,14 @@ request.COOKIES.get("is_login")  # 设置
 <br><br>
 
 # Django模块
+## Django
+### 01.什么是Django框架？
+### 02.为什么大多数人建议Django对web开发有好处？(解释主要特性)。
+### 03.请讲解基于Django的项目的整个区域架构？
+
+
+
+
 ## 框架层
 ### 01.简述MVC模式和MVT模式
 `初级`  `MVC` `MVT`<br><br>
@@ -462,7 +473,7 @@ V 代表视图（View）： 负责业务逻辑，并在适当时候调用Model�
 
 ### 05.什么是WSGI
 `初级` `wsgi` `Django` <br><br>
-&#8195;&#8195;WSGI是Python定义的Web服和Web应用程序或框架之间的一种简单而通用的接口。它定义了Web服务器如何与Python应用程序进行交互，让Python写的Web应用程序可以和Web服务器对接起来。
+&#8195;&#8195;WSGI(Python Web Server Gateway Interface，即Web服务器网关接口)是Python定义的Web服和Web应用程序或框架之间的一种简单而通用的接口。它是Python为了解决Web服务器端与客户端之间的通信问题而产生的，它基于现存的CGI标准而设计。其定义了Web服务器如何与Python应用程序进行交互，让Python写的Web应用程序可以和Web服务器对接起来。
 <br><br>[返回目录](#目录)
 <br><br>
 
@@ -514,74 +525,87 @@ class WSGIHandler(base.BaseHandler):
 
 ### 10.简述Django对http请求的执行流程
 `初级` `Django` <br><br>
+&#8195;&#8195;在接受一个Http请求之前的准备,需启动一个支持WSGI网关协议的服务器监听端口等待外界的Http请求，比如Django自带的开发者服务器或者uWSGI服务器。
+Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此时服务器已处于监听状态，可以接受外界的Http请求,当一个http请求到达服务器的时候,Django服务器根据WSGI协议从Http请求中提取出必要的参数组成一个字典（environ）并传入Handler中进行处理。在Handler中对已经符合WSGI协议标准规定的http请求进行分析，比如加载Django提供的中间件，路由分配，调用路由匹配的视图等。最后返回一个可以被浏览器解析的符合Http协议的HttpResponse。
 
 [返回目录](#目录)
 <br><br>
-### 11.Django中如何读取和保存session，整个session的运行机制是什么
+### 11.Django中session的运行机制是什么
 `初级` `Django` <br><br>
+&#8195;&#8195;django的session存储可以利用中间件middleware来实现。需要在 `settings.py` 文件中注册APP、设置中间件用于启动。设置存储模式（数据库/缓存/混合存储）和配置数据库缓存用于存储，生成django_session表单用于读写。
+
+
 
 [返回目录](#目录)
 <br><br>
-### 12. 什么是CSRF，及防范方式
+### 12. 什么是CSRF，请描述其攻击原理，在Django中如何解决
 `初级` `Django` <br><br>
+&#8195;&#8195;CSRF（cross-site request forgery）简称跨站请求伪造。例如，你访问了信任网站A,然后网站A会用保存你的个人信息并返回给你的浏览器一个cookie，然后呢，在cookie的过期时间之内，你去访问了恶意网站B，它给你返回一些恶意请求代码，要求你去访问网站A，而你的浏览器在收到这个恶意请求之后，在你不知情的情况下，会带上保存在本地浏览器的cookie信息去访问网站A，然后网站A误以为是用户本身的操作，导致来自恶意网站C的攻击代码会被执行：发邮件，发消息，修改你的密码，购物，转账，偷窥你的个人信息，导致私人信息泄漏和账户财产安全受到威胁。<br><br>
+&#8195;&#8195;在post请求时，form表单或ajax里添加csrf_token，服务端开启CSRF中间件进行验证。<br><br>
+&#8195;&#8195;解决原理是页面添加csrf_token值后，用户通过URL访问（GET请求）该页面时，Django会在响应中自动帮我们生成cookie信息，返回给浏览器，同时在前端代码会生成一个csrf_token值，然后当你POST提交信息时，Django会自动比对cookie里和前端form表单或ajax提交上来的csrf_token值，两者一致，说明是当前浏览器发起的正常请求并处理业务逻辑返回响应，那么第三方网站拿到你的cookie值为什么不能通过验证呢，因为他没你前端的那个随机生成的token值，他总不能跑到你电脑面前查看你的浏览器前端页面自动随机生成的token值吧。<br>
+> 注意：你打开浏览器访问某个url（页面），默认是get请求，也就是说，你只要访问了url，对应的视图函数里只要不是if xx == post的逻辑就会执行，所以你打开页面，他会先生成cookie（token）值，返回给浏览器，然后你提交表单，或者发ajax请求时，会将浏览器的cookie信息（token值）发送给服务器进行token比对，这个过程相对于你发起了两次请求，第一次是get，第二次才是post，搞清楚这个，你才能明白csrf_token是怎么比对的。
+
 
 [返回目录](#目录)
 <br><br>
 ### 13. Django中CSRF的实现机制
-`初级` `Django` <br><br>
+`初级` `Django` <br>
+1. django第1次响应来自某个客户端的请求时,服务器随机产生1个token值，把这个token保存在session态中;同时,服务器把这个token放到cookie中交给前端页面；
+2. 该客户端再次发起请求时，把这个token值加入到请求数据或者头信息中,一起传给服务器；
+3. 服务器校验前端请求带过来的token和session里的token是否一致。
 
 [返回目录](#目录)
 <br><br>
-### 14.解决跨域的常用方式有哪些
+### 14.什么是跨域请求，其有哪些方式
 `初级` `Django` <br><br>
+- **跨域是指一个域下的文档或脚本试图去请求另一个域下的资源**。<br>
+
+方式如下：
+1. 资源跳转： a链接、重定向、表单提交
+2. 资源嵌入： link/script/img/frame/dom等标签，还有样式中background:url()、@font-face()等文件外链
+3. 脚本请求： js发起的ajax请求、dom和js对象的跨域操作等
 
 [返回目录](#目录)
 <br><br>
 ### 15.跨域请求Django是如何处理的
 `初级` `Django` <br><br>
+使用第三方工具 **django-cors-headers** 即可彻底解决
+- 注册app
+- 添加中间件
+- 配置运行跨域请求方法
 
 [返回目录](#目录)
 <br><br>
-### 16.信号的作用是什么？
+### 16.信号的作用是什么
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
 ### 17.web框架的本质是什么
-`初级` `Django` <br><br>
+`初级` `Django` <br>
+- web框架本质是一个socket服务端，用户的浏览器是一个socket客户端。
 
 [返回目录](#目录)
 <br><br>
-### 18.创建Django工程、Django app、以及运行的命令
-`初级` `Django` <br><br>
 
-[返回目录](#目录)
-<br><br>
-### 19.Django App的目录结构
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 20.Django 获取用户前端请求数据的几种方式
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 21.在Django中，服务端给客户端响应信息有几种方式？分别是什么
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
 ### 22.谈谈你对restful规范的认识
 `初级` `Django` <br><br>
+&#8195;&#8195;restful是一种软件架构设计风格，并不是标准，它只是提供了一组设计原则和约束条件，主要用于客户端和服务器交互类的软件。     就像设计模式一样，并不是一定要遵循这些原则，而是基于这个风格设计的软件可以更简洁，更有层次，我们可以根据开发的实际情况，做相应的改变。<br><br>
+它里面提到了一些规范，例如
+1. restful 提倡面向资源编程,在url接口中尽量要使用名词，不要使用动词
+2. 在url接口中推荐使用Https协议，让网络接口更加安全                       
+3. 在url中可以体现版本号         
+4. url中可以体现是否是API接口           
+5. url中可以添加条件去筛选匹配           
+6. 可以根据Http不同的method，进行不同的资源操作             
+7. 响应式应该设置状态码
+8. 有返回值，而且格式为统一的json格式             
+9. 返回错误信息           
+10. 返回结果中要提供帮助链接，即API最好做到Hypermedia
 
 [返回目录](#目录)
 <br><br>
-### 23.Django本身提供了runserver，为什么不能用来部署
-`初级` `Django` <br><br>
 
-[返回目录](#目录)
-<br><br>
 ### 24.Django中如何加载初始化数据
 `初级` `Django` <br><br>
 
@@ -597,13 +621,18 @@ class WSGIHandler(base.BaseHandler):
 
 [返回目录](#目录)
 <br><br>
-### 27.Django中当用户登录到A服务器进入登陆状态，下次被nginx代理到B服务器会出现什么影响
+
+### .什么是ASGI，简述WSGI和ASGI的关系与区别
 `初级` `Django` <br><br>
+&#8195;&#8195;ASGI是异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。<br>
+&#8195;&#8195;WSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。
 
 [返回目录](#目录)
 <br><br>
-### 28.Django如何实现websocket
+
+### .Django如何实现websocket
 `初级` `Django` <br><br>
+&#8195;&#8195;django实现websocket使用channels。==channels通过http协议升级到websocket协议，保证实时通讯。== 也就是说，我们完全可以用channels实现我们的即时通讯。而不是使用长轮询和计时器方式来保证伪实时通讯。==他使用asgi协议而不是wsgi协议，他通过改造django框架，使django既支持http协议又支持websocket协议。==
 
 [返回目录](#目录)
 <br><br>
@@ -612,7 +641,7 @@ class WSGIHandler(base.BaseHandler):
 
 [返回目录](#目录)
 <br><br>
-### .30列举django的内置组件
+### 30.列举django的内置组件
 `初级`  `Django` <br>
 - Admin是对model中对应的数据表进行增删改查提供的组件
 - model组件：负责操作数据库
@@ -621,6 +650,23 @@ class WSGIHandler(base.BaseHandler):
 
 [返回目录](#目录)
 <br><br>
+
+### .Django本身提供了runserver，为什么不能用来部署
+`初级` `Django` <br>
+1. runserver方法是调试 Django 时经常用到的运行方式，它使用Django自带的
+WSGI Server 运行，==主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。==
+2. uWSGI是一个Web服务器，它实现了WSGI协议、uwsgi、http 等协议。注意uwsgi是一种通信协议，而uWSGI是实现uwsgi协议和WSGI协议的 Web 服务器。==uWSGI具有超快的性能、低内存占用和多app管理等优点，并且搭配着Nginx就是一个生产环境了，能够将用户访问请求与应用 app 隔离开，实现真正的部署 。== 相比来讲，支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。
+
+[返回目录](#目录)
+<br><br>
+### 27.Django中当用户登录到A服务器进入登陆状态，下次被nginx代理到B服务器会出现什么影响
+`初级` `Django` <br><br>
+&#8195;&#8195;如果用户在A应用服务器登陆的session数据没有共享到B应用服务器，那么之前的登录状态就没有了。<br><br>
+[返回目录](#目录)
+<br><br>
+
+### .如何在Django中处理负载管理？
+### .如何提高Django应用程序的性能？
 
 ### 31.Tornado的核是什么
 `初级` `Django` <br><br>
@@ -914,8 +960,11 @@ return redirect(‘/index.html’)
 [返回目录](#目录)
 <br><br>
 
+### .基于函数的视图和基于类的视图之间的区别？你更喜欢哪一个？为什么？
+
 
 ## 模板层
+### 25.。如何继承B模板中的A模板？(模板继承)。
 ### 01.Django的模板中自定义filter和simple_tag的区别
 `初级` `Django` <br><br>
 
@@ -929,18 +978,43 @@ return redirect(‘/index.html’)
 
 
 
+## 高阶
 
 
+# 数据库模块
+## MySQL
+### .NoSQL和SQL数据库之间有什么不同？请举例回答(提示：mysql和mongo db)。
+### .如何确定需要哪些字段需要设置索引？
+### .什么情况下需要设定字段属性为unique = True？
+### .如何排查某个SQL语句的索引命中情况？
+### .如何排查查询过慢的SQL语句？
 
-
-
-
-
-<span id = "jump"></span>
-# 架构模块 
-## .介绍你项目的架构设计
-[返回目录](#目录)
+[返回目录](#目录) 
 <br><br>
 
+# Redis模块
+## 你了解的Redis的特点是什么？为什么会使用它？
+## 支持的数据类型
+## 如何合理的规划key？
 
+# 常用算法模块
+## Python中字典类型的实现算法
+## 你了解的高级语言中的垃圾回收机制有哪些？Python中用的是什么？
+## 介绍下你知道的缓存相关的算法
+## 介绍下你知道的负载均衡相关的算法
+## 介绍下数据库索引相关算法
+
+[返回目录](#目录) 
+<br><br>
+
+<span id = "jump"></span>
+# 其他模块 
+## .介绍你项目的架构设计
+[返回目录](#目录) [前往框架层](#框架层)
+<br><br>
+
+# 云服务模块 
+## .你使用过哪些云服务技术？
+[返回目录](#jump)
+<br><br>
 
