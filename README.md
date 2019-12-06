@@ -7,4 +7,6 @@
 6. 若采纳问题或答案将会在此声明
 
 贡献者：MakChikin、
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575656862474&di=5f104155aed0494560f522587092b15c&imgtype=jpg&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2Fw1280h720%2F20171204%2Fqa_i-fypikwt6342432.jpg"  align=center>
+
+<br><br>
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575656862474&di=5f104155aed0494560f522587092b15c&imgtype=jpg&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2Fw1280h720%2F20171204%2Fqa_i-fypikwt6342432.jpg" width="500" align=center>
