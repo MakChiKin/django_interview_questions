@@ -1,10 +1,11 @@
 # 目录 <span id="目录"></span>
 
 [欢迎前往GitHub贡献自己的问题和答案](https://github.com/MakChiKin/django_interview_questions)  
+[前往有道云浏览（推荐）](http://note.youdao.com/noteshare?id=c16d3e59263823bfc32ea00b95123882)  
+[前往CSDN浏览](https://blog.csdn.net/weixin_41622043/article/details/103426652)  
 
 [TOC]
 # HTTP模块 
-共16个常见面试题 <br>`HTTP` `HTTPS` `TCP` `UDP` `COOKIE` `SESSION` `PYTHON` 
 ## 01.HTTP是什么
 `初级` `HTTP`
 1. HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
@@ -409,16 +410,68 @@ request.COOKIES.get("is_login")  # 设置
 <br><br>
 
 # Django模块
-## Django
-### 01.什么是Django框架？
-### 02.为什么大多数人建议Django对web开发有好处？(解释主要特性)。
-### 03.请讲解基于Django的项目的整个区域架构？
-
-
-
-
 ## 框架层
-### 01.简述MVC模式和MVT模式
+### 01.什么是Django框架？
+`初级`  `Django`<br><br>
+&#8195;&#8195;Django是一个开放源代码的Web应用框架，由Python写成。采用了MTV的框架模式。使用这种架构，程序员可以方便、快捷地创建高品质、易维护、数据库驱动的应用程序。它还包含许多功能强大的第三方插件，使得Django具有较强的可扩展性。
+
+[返回目录](#目录)
+<br><br>
+
+### 02.Django对web开发有哪些优势
+`初级`  `Django`<br>
+- **功能完善、要素齐全**：该有的、可以没有的都有，自带大量常用工具和框架，无须你自定义、组合、增删及修改。
+- **完善的文档**：经过十多年的发展和完善，Django有广泛的实践案例和完善的在线文档。开发者遇到问题时可以搜索在线文档寻求解决方案。
+- **强大的数据库访问组件**：Django的Model层自带数据库ORM组件，使得开发者无须学习其他数据库访问技术（SQL、pymysql、SQLALchemy等）。
+- **灵活的URL映射**：Django使用正则表达式管理URL映射，灵活性高。新版的2.0，进一步提高了URL编写的优雅性。
+- **丰富的Template模板语言**：类似jinjia模板语言，不但原生功能丰富，还可以自定义模板标签，并且与其ORM的用法非常相似。
+- **自带后台管理系统admin**：只需要通过简单的几行配置和代码就可以实现一个完整的后台数据管理控制平台。
+- **完整的错误信息提示**：在开发调试过程中如果出现运行错误或者异常，Django可以提供非常完整的错误信息帮助定位问题。
+
+[返回目录](#目录)
+<br><br>
+### 03.简述Django的项目的组成模块
+`初级`  `Django`<br>
+1. **Project**
+2. **Apps**
+3. **Model**
+4. **URL Route**
+5. **View**
+6. **DTL**
+7. **Admin**
+8. **Cache System**
+
+<br>
+
+以下详细参考：
+- **工程**<br>
+> &#8195;&#8195;工程是承载了Django实例的所有设置的Python程序包。大部分情况下，一个Web站点就是一个工程。工程内可以新建及存放该工程固有的应用，或者保存Web站点的设置(数据库设置、Django的选项设置、各应用的设置等)
+- **应用**<br>
+> &#8195;&#8195;对于Django而言，应用之的是表示单一工程的Web应用的Python程序包。由于其本质就是Python程序包，因此方法PYTHONPATH有效地任何位置都没有问题。这里最好尽量减少应用与工程、应用于应用之间的依赖关系，做到功能独立，以便在其他工程中重复利用。
+- **模型**<br>
+> &#8195;&#8195;Django提供了O/R映射工具，因此可以用Python代码来描述数据库布局。
+　　每个模型都是继承了django.db.models.Model类的Python的类，分别对应数据库中的一个表格。通过建数据库的字段、关系、行为定义为模型类的属性或方法，我们可以使用丰富且灵活的数据库方位API。
+- **URL分配器**<br>
+> &#8195;&#8195;URL分配器机制使得URL信息不再受框架及扩展名的制约，从而让Web应用的URL设计保持简介。<br>
+　　URl在URlconf模块中进行描述，URLconf模块中包含使用正则表达式书写的URL和Python函数的映像。URlconf能够以应用为单位进行分割，因此提高了应用的可重复利用性。另外，我们可以利用给URL设置名称并定义的方式让代码和目标直接通过该名称调用URL，从而将URL设计与代码分离。
+- **视图**<br>
+> &#8195;&#8195;Django的视图时一类函数，它能够生成指定页面的HttpResponse对象或像Http 404这样的异常情况，返回HTTP请求。典型的视图函数的处理流程通常是从请求参数中获取数据，读取模型，热按后根据获取的数据渲染模板。
+- **模板系统**<br>
+> &#8195;&#8195;在Django的概念中，模板系统只负责显示，并不是编写逻辑代码的环境。因此Django的模板系统将设计与内容、代码分离开来，是一共功能强、扩展性高、对设计者很友好的模板语言。<br>
+　　模板基于文本而不是XML，因此它不但能生成XML和HTML，还能生成E-mail、JavaScript、CSV等任意文本格式。<br>
+　　另外，如果使用模板继承功能，子模板只需要将父模板中预留的空位填满即可。我们在编写模板时只需要描述各个模板独有的部分，因此可以省去重复冗余的编码过程。
+- **管理界面**<br>
+> &#8195;&#8195;大多Web应用在运行过程中，都需要一个专供拥有管理员权限的用户添加、编辑、删除数据的界面，但是实际制作这个界面并不容易。<br>
+　　Django只需将已经完工的模型添加到管理站点，就能根据模型定义，动态地生成页面。为我们提供一个功能齐全的管理界面。
+- **缓存系统**<br>
+> &#8195;&#8195;Django可以使用memcached等缓存后端轻松地缓存数据。比如可以将动态页面的渲染结果缓存下来，等到下次需要时直接读取缓存，从而不必每次都对动态页面进行处理。<br>
+　　缓存的后端可以从memcached、数据库、文件系统、本地内存等位置进行选择。缓存对象也支持整个网站、特定的整个视图、部分模板、特定数据等。
+　　
+
+[返回目录](#目录)
+<br><br>
+
+### 04.简述MVC模式和MVT模式
 `初级`  `MVC` `MVT`<br><br>
 <img src="https://img-blog.csdnimg.cn/20190516085453110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTYyMjA0Mw==,size_16,color_FFFFFF,t_70" width="500" height="330" align=center>
 
@@ -438,16 +491,7 @@ V 代表视图（View）： 负责业务逻辑，并在适当时候调用Model�
 [返回目录](#目录)
 <br><br>
 
-### 02.谈一谈你对ORM的理解
-`初级`  `ORM` <br><br>
-**ORM**是“对象-关系-映射”的简称。
-
-&#8195;&#8195;ORM是MVC或者MVC框架中包括一个重要的部分，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动。
-
-[返回目录](#目录)
-<br><br>
-
-### 03.简述Django请求生命周期
+### 05.简述Django请求生命周期
 `初级`  `Django`  `生命周期` <br><br>
 <img src="https://img-blog.csdnimg.cn/20191205152153636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTYyMjA0Mw==,size_16,color_FFFFFF,t_70" width="480" height="700" align=center>
 
@@ -460,25 +504,18 @@ V 代表视图（View）： 负责业务逻辑，并在适当时候调用Model�
 7. 所有最后离开的响应都会到达response中间件，对响应的数据进行处理，返回HttpResponse给wsgi
 8. wsgi经过uWSGI服务器,将响应的内容发送给浏览器。
 
-<br><br>[返回目录](#目录)
+[返回目录](#目录)
 <br><br>
 
 
-### 04.什么是Nginx
-`初级` `Nginx` <br><br>
-&#8195;&#8195;Nginx是一个高性能代理服务，接收客户端发送过来的HTTP请求和websocket请求，响应静态文件请求和转发动态请求。
-<br><br>[返回目录](#目录)
-<br><br>
-
-
-### 05.什么是WSGI
+### 07.什么是WSGI
 `初级` `wsgi` `Django` <br><br>
 &#8195;&#8195;WSGI(Python Web Server Gateway Interface，即Web服务器网关接口)是Python定义的Web服和Web应用程序或框架之间的一种简单而通用的接口。它是Python为了解决Web服务器端与客户端之间的通信问题而产生的，它基于现存的CGI标准而设计。其定义了Web服务器如何与Python应用程序进行交互，让Python写的Web应用程序可以和Web服务器对接起来。
 <br><br>[返回目录](#目录)
 <br><br>
 
 
-### 06.uwsgi、uWSGI和WSGI的区别
+### 08.uwsgi、uWSGI和WSGI的区别
 `中级`  `uwsgi` `uWSGI` `WSGI` <br><br>
 ```
 graph LR
@@ -493,7 +530,7 @@ uWSGI-- WSGI ---Django
 [返回目录](#目录)
 <br><br>
 
-### 07.Django的request对象是在什么时候创建的？
+### 09.Django的request对象是在什么时候创建的？
 `中级`  `WSGI` 
 ```python
 class WSGIHandler(base.BaseHandler):
@@ -505,14 +542,14 @@ class WSGIHandler(base.BaseHandler):
 <br><br>
 
 
-### 08.什么是中间件并简述其作用
+### 10.什么是中间件并简述其作用
 `初级` `中间件`  `Django` <br><br>
 &#8195;&#8195;中间件是一个用来处理Django请求和响应的框架级钩子。它是一个轻量、低级别的插件系统，用于在全局范围内改变Django的输入和输出。每个中间件组件都负责做一些特定的功能。<br><br>
 [返回目录](#目录)
 <br><br>
 
 
-### 09.列举django中间件的5个方法，以及django中间件的应用场景
+### 11.列举django中间件的5个方法，以及django中间件的应用场景
 `初级` `中间件`  `Django` <br>
 - process_request : 请求进来时,权限认证
 - process_view : 路由匹配之后,能够得到视图函数
@@ -523,14 +560,14 @@ class WSGIHandler(base.BaseHandler):
 [返回目录](#目录)
 <br><br>
 
-### 10.简述Django对http请求的执行流程
+### 12.简述Django对http请求的执行流程
 `初级` `Django` <br><br>
 &#8195;&#8195;在接受一个Http请求之前的准备,需启动一个支持WSGI网关协议的服务器监听端口等待外界的Http请求，比如Django自带的开发者服务器或者uWSGI服务器。
 Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此时服务器已处于监听状态，可以接受外界的Http请求,当一个http请求到达服务器的时候,Django服务器根据WSGI协议从Http请求中提取出必要的参数组成一个字典（environ）并传入Handler中进行处理。在Handler中对已经符合WSGI协议标准规定的http请求进行分析，比如加载Django提供的中间件，路由分配，调用路由匹配的视图等。最后返回一个可以被浏览器解析的符合Http协议的HttpResponse。
 
 [返回目录](#目录)
 <br><br>
-### 11.Django中session的运行机制是什么
+### 13.Django中session的运行机制是什么
 `初级` `Django` <br><br>
 &#8195;&#8195;django的session存储可以利用中间件middleware来实现。需要在 `settings.py` 文件中注册APP、设置中间件用于启动。设置存储模式（数据库/缓存/混合存储）和配置数据库缓存用于存储，生成django_session表单用于读写。
 
@@ -538,7 +575,7 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 
 [返回目录](#目录)
 <br><br>
-### 12. 什么是CSRF，请描述其攻击原理，在Django中如何解决
+### 14. 什么是CSRF，请描述其攻击原理，在Django中如何解决
 `初级` `Django` <br><br>
 &#8195;&#8195;CSRF（cross-site request forgery）简称跨站请求伪造。例如，你访问了信任网站A,然后网站A会用保存你的个人信息并返回给你的浏览器一个cookie，然后呢，在cookie的过期时间之内，你去访问了恶意网站B，它给你返回一些恶意请求代码，要求你去访问网站A，而你的浏览器在收到这个恶意请求之后，在你不知情的情况下，会带上保存在本地浏览器的cookie信息去访问网站A，然后网站A误以为是用户本身的操作，导致来自恶意网站C的攻击代码会被执行：发邮件，发消息，修改你的密码，购物，转账，偷窥你的个人信息，导致私人信息泄漏和账户财产安全受到威胁。<br><br>
 &#8195;&#8195;在post请求时，form表单或ajax里添加csrf_token，服务端开启CSRF中间件进行验证。<br><br>
@@ -548,7 +585,7 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 
 [返回目录](#目录)
 <br><br>
-### 13. Django中CSRF的实现机制
+### 15. Django中CSRF的实现机制
 `初级` `Django` <br>
 1. django第1次响应来自某个客户端的请求时,服务器随机产生1个token值，把这个token保存在session态中;同时,服务器把这个token放到cookie中交给前端页面；
 2. 该客户端再次发起请求时，把这个token值加入到请求数据或者头信息中,一起传给服务器；
@@ -556,9 +593,9 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 
 [返回目录](#目录)
 <br><br>
-### 14.什么是跨域请求，其有哪些方式
-`初级` `Django` <br><br>
-- **跨域是指一个域下的文档或脚本试图去请求另一个域下的资源**。<br>
+### 16.什么是跨域请求，其有哪些方式
+`初级` `Django` <br>
+- **跨域是指一个域下的文档或脚本试图去请求另一个域下的资源**。
 
 方式如下：
 1. 资源跳转： a链接、重定向、表单提交
@@ -567,7 +604,7 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 
 [返回目录](#目录)
 <br><br>
-### 15.跨域请求Django是如何处理的
+### 17.跨域请求Django是如何处理的
 `初级` `Django` <br><br>
 使用第三方工具 **django-cors-headers** 即可彻底解决
 - 注册app
@@ -576,8 +613,9 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 
 [返回目录](#目录)
 <br><br>
-### 16.信号的作用是什么
+### 16.什么是信号量
 `初级` `Django` <br><br>
+&#8195;&#8195;Django包含一个"信号调度程序"，它有助于在框架中的其他位置发生操作时通知分离的应用程序。简而言之，信号允许某些发送者通知一组接收器已经发生了某些动作。当许多代码可能对同一事件感兴趣时，它们特别有用.
 
 [返回目录](#目录)
 <br><br>
@@ -588,7 +626,7 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 [返回目录](#目录)
 <br><br>
 
-### 22.谈谈你对restful规范的认识
+### 18.谈谈你对restful规范的认识
 `初级` `Django` <br><br>
 &#8195;&#8195;restful是一种软件架构设计风格，并不是标准，它只是提供了一组设计原则和约束条件，主要用于客户端和服务器交互类的软件。     就像设计模式一样，并不是一定要遵循这些原则，而是基于这个风格设计的软件可以更简洁，更有层次，我们可以根据开发的实际情况，做相应的改变。<br><br>
 它里面提到了一些规范，例如
@@ -606,23 +644,52 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 [返回目录](#目录)
 <br><br>
 
-### 24.Django中如何加载初始化数据
+### 19.Django中如何加载初始化数据
 `初级` `Django` <br><br>
+&#8195;&#8195;Django在创建对象时在掉用save()方法后，ORM框架会把对象的属性转换为写入到数据库中，实现对数据库的初始化；通过操作对象，查询数据库，将查询集返回给视图函数，通过模板语言展现在前端页面。
 
 [返回目录](#目录)
 <br><br>
-### 25.缓存系统类型有哪些
-`初级` `Django` <br><br>
+### 20.Django缓存系统类型有哪些
+`初级` `Django` <br>
+**1. 全站缓存，较少使用**
+```python
+MIDDLEWARE_CLASSES = (
+    ‘django.middleware.cache.UpdateCacheMiddleware’,  # 第一
+    'django.middleware.common.CommonMiddleware',
+    ‘django.middleware.cache.FetchFromCacheMiddleware’,  # 最后
+)
+```
+**2. 视图缓存，用户视图函数或视图类中**
+```python
+from django.views.decorators.cache import cache_page
+import time
+
+@cache_page(15) #超时时间为15秒
+def index(request):
+    t=time.time() #获取当前时间
+    return render(request,"index.html",locals())
+```
+**3. 模板缓存，指缓存不经常变换的模板片段**
+```html
+{% load cache %}
+    <h3 style="color: green">不缓存:-----{{ t }}</h3>
+
+{% cache 2 'name' %} # 存的key
+    <h3>缓存:-----:{{ t }}</h3>
+{% endcache %}
+```
 
 [返回目录](#目录)
 <br><br>
-### 26.简述Django下的（内建）缓存机制
+### 21.请简述Django下的（内建）缓存机制
 `初级` `Django` <br><br>
+&#8195;&#8195;Django根据设置的缓存方式，浏览器第一次请求时，cache会缓存单个变量或整个网页等内容到硬盘或者内存中，同时设置response头部，当浏览器再次发起请求时，附带f-Modified-Since请求时间到Django，Django发现f-Modified-Since会先去参数之后，会与缓存中的过期时间相比较，如果缓存时间比较新，则会重新请求数据，并缓存起来然后返回response给客户端，如果缓存没有过期，则直接从缓存中提取数据，返回给response给客户端。
 
 [返回目录](#目录)
 <br><br>
 
-### .什么是ASGI，简述WSGI和ASGI的关系与区别
+### 22.什么是ASGI，简述WSGI和ASGI的关系与区别
 `初级` `Django` <br><br>
 &#8195;&#8195;ASGI是异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。<br>
 &#8195;&#8195;WSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。
@@ -630,46 +697,29 @@ Django服务器根据WSGI协议指定相应的Handler来处理Http请求。此�
 [返回目录](#目录)
 <br><br>
 
-### .Django如何实现websocket
+### 23.Django如何实现websocket
 `初级` `Django` <br><br>
 &#8195;&#8195;django实现websocket使用channels。==channels通过http协议升级到websocket协议，保证实时通讯。== 也就是说，我们完全可以用channels实现我们的即时通讯。而不是使用长轮询和计时器方式来保证伪实时通讯。==他使用asgi协议而不是wsgi协议，他通过改造django框架，使django既支持http协议又支持websocket协议。==
 
 [返回目录](#目录)
 <br><br>
-### 29.Django如何实现高并发
-`初级` `Django` <br><br>
 
-[返回目录](#目录)
-<br><br>
-### 30.列举django的内置组件
+### 25.列举django的核心组件
 `初级`  `Django` <br>
-- Admin是对model中对应的数据表进行增删改查提供的组件
-- model组件：负责操作数据库
-- form组件：<br>1. 生成html代码<br>2. 数据有效性校验<br>3. 校验信息返回并展示
-- ModelForm组件即用于数据库操作,也可用于用户请求的验证
+- 用于创建模型的对象关系映射；
+- 为最终用户设计较好的管理界面；
+- URL设计；
+- 设计者友好的模板语言；
+- 缓存系统。
 
 [返回目录](#目录)
 <br><br>
 
-### .Django本身提供了runserver，为什么不能用来部署
+### 26.Django本身提供了runserver，为什么不能用来部署
 `初级` `Django` <br>
 1. runserver方法是调试 Django 时经常用到的运行方式，它使用Django自带的
 WSGI Server 运行，==主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。==
 2. uWSGI是一个Web服务器，它实现了WSGI协议、uwsgi、http 等协议。注意uwsgi是一种通信协议，而uWSGI是实现uwsgi协议和WSGI协议的 Web 服务器。==uWSGI具有超快的性能、低内存占用和多app管理等优点，并且搭配着Nginx就是一个生产环境了，能够将用户访问请求与应用 app 隔离开，实现真正的部署 。== 相比来讲，支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。
-
-[返回目录](#目录)
-<br><br>
-### 27.Django中当用户登录到A服务器进入登陆状态，下次被nginx代理到B服务器会出现什么影响
-`初级` `Django` <br><br>
-&#8195;&#8195;如果用户在A应用服务器登陆的session数据没有共享到B应用服务器，那么之前的登录状态就没有了。<br><br>
-[返回目录](#目录)
-<br><br>
-
-### .如何在Django中处理负载管理？
-### .如何提高Django应用程序的性能？
-
-### 31.Tornado的核是什么
-`初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
@@ -685,29 +735,44 @@ WSGI Server 运行，==主要在测试和开发中使用，并且 runserver 开�
 
 [返回目录](#目录)
 <br><br>
-
-### 02.如何获取django urlpatterns里面注册的所有url
+### 02.urlpatterns中的name与namespace的区别
 `初级` `Django` <br><br>
+name:给路由起一个别名<br>
+namespace:防止多个应用之间的路由重复
 
 [返回目录](#目录)
 <br><br>
+
 ### 03.Django路由系统中include是干嘛用的？
 `初级` `Django` <br><br>
+&#8195;&#8195;include用作路由转发，通常，我们会在每个app里，各自创建一个urls.py路由模块，然后从根路由出发，将app所属的url请求，全部转发到相应的urls.py模块中。
 
 [返回目录](#目录)
 <br><br>
-### 04.Django2.0中的path与django1.xx里面的url有什么区别
+
+
+### 04.Django2.x中的path与django1.x里面的URL有什么区别
 `初级` `Django` <br><br>
+&#8195;&#8195;path与url是两个不同的模块,效果都是响应返回页面, path调用的是python第三方模块或框架,而url则是自定义的模块。url默认支持正则表达式，而path不支持，正则表达式需要使用另外一个函数re_path。
+
+```python
+# django 2.x
+django.urls path
+# django 1.x
+django.conf.urls url
+```
+[答案来源](https://www.lockv.com/python/django2-x%E4%B8%ADpath%E4%B8%8Edjango1-x%E4%B8%ADurl%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E7%94%A8%E6%B3%95/)
 
 [返回目录](#目录)
 <br><br>
-### 05.urlpatterns中的name与namespace有什么作用？你是如何使用的
-`初级` `Django` <br><br>
 
-[返回目录](#目录)
-<br><br>
-### 06.Django重定向你是如何实现的？用的什么状态码
-`初级` `Django` <br><br>
+### 05.Django重定向的几种方法，用的什么状态码
+`初级` `Django` <br>
+- HttpResponse
+- Redirect
+- redirect 
+- reverse
+- 状态码：302,301
 
 [返回目录](#目录)
 <br><br>
@@ -715,7 +780,7 @@ WSGI Server 运行，==主要在测试和开发中使用，并且 runserver 开�
 
 ## 模型层
 ### 01.命令migrate 和makemigrations的差别
-`初级`  `Django` <br><br>
+`初级`  `Django` <br>
 - makemigrations:生成迁移文件
 - migrate:执行迁移
 
@@ -811,8 +876,13 @@ cursor.fetchall()
 [返回目录](#目录)
 <br><br>
 
+### 02.谈一谈你对ORM的理解
+`初级`  `ORM` <br><br>
+**ORM**是“对象-关系-映射”的简称。
 
-### 14.如何使用django orm批量创建数据
+&#8195;&#8195;ORM是MVC或者MVC框架中包括一个重要的部分，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动。
+
+### 14.如何使用Django ORM批量创建数据
 `中级` `Django`  `ORM`
  
 可以使用`django.db.models.query.QuerySet.bulk_create()`批量创建对象，减少SQL查询次数。<br>
@@ -833,7 +903,7 @@ Account.objects.bulk_create(querysetlist)
 [返回目录](#目录)
 <br><br>
 
-### .列举django ORM中操作QuerySet对象的方法(至少5个)
+### 15.列举django ORM中操作QuerySet对象的方法(至少5个)
 `初级` `Django`  `ORM`
 方法|作用
 ---|---
@@ -854,47 +924,43 @@ distinct()|对查询集去重
 [返回目录](#目录)
 <br><br>
 
-### 15.ORM如何取消级联
+### 16.ORM如何取消级联
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 16.查询集的2大特性？什么是惰性执行
+### 17.查询集的2大特性？什么是惰性执行
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 17.查询集返回的列表过滤器有哪些
+### 18.查询集返回的列表过滤器有哪些
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 18.selected_related与prefetch_related有什么区别
+### 19.selected_related与prefetch_related有什么区别
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 19.values()与values_list()有什么区别
+### 20.values()与values_list()有什么区别
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 20.QueryDict和dict区别
+### 21.QueryDict和dict区别
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
 <br><br>
-### 21.Django中查询Q和F的区别
+### 22.Django中查询Q和F的区别
 `初级` `Django` `ORM`
 - Q查询：对数据的多个字段联合查询（常和且或非"&|~"进行联合使用）
 - F查询：对数据的不同字段进行比较（常用于比较和更新，对数据进行加减操作）
 
 [返回目录](#目录)
 <br><br>
-
-
-
-
 
 
 ## 视图层
@@ -964,13 +1030,7 @@ return redirect(‘/index.html’)
 
 
 ## 模板层
-### 25.。如何继承B模板中的A模板？(模板继承)。
-### 01.Django的模板中自定义filter和simple_tag的区别
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 02.描述下自定义simple_tag
+### 如何继承B模板中的A模板？(模板继承)。
 `初级` `Django` <br><br>
 
 [返回目录](#目录)
@@ -979,6 +1039,18 @@ return redirect(‘/index.html’)
 
 
 ## 高阶
+### 01.如何在Django中处理负载管理？
+### 02.如何提高Django应用程序的性能？
+### 03.Django如何实现高并发?
+### 04.Django中当用户登录到A服务器进入登陆状态，下次被nginx代理到B服务器会出现什么影响
+`初级` `Django` <br><br>
+&#8195;&#8195;如果用户在A应用服务器登陆的session数据没有共享到B应用服务器，那么之前的登录状态就没有了。<br><br>
+[返回目录](#目录)
+<br><br>
+### Tornado和Django区别
+
+[返回目录](#目录)
+<br><br>
 
 
 # 数据库模块
@@ -988,6 +1060,7 @@ return redirect(‘/index.html’)
 ### .什么情况下需要设定字段属性为unique = True？
 ### .如何排查某个SQL语句的索引命中情况？
 ### .如何排查查询过慢的SQL语句？
+### .mysql怎么处理高并发
 
 [返回目录](#目录) 
 <br><br>
@@ -996,6 +1069,24 @@ return redirect(‘/index.html’)
 ## 你了解的Redis的特点是什么？为什么会使用它？
 ## 支持的数据类型
 ## 如何合理的规划key？
+## redis持久化，如果redis现需要重启，rdb模式下怎么在重启前保存数据
+## 比如我需要把所有的文章和分类数据写入Redis，在Django中直接读取Redis拿到### 分类和文章的数据，问怎么规划数据存储，如何处理分页？
+## 是否支持事务？举个例子。
+## 有哪些数据淘汰策略？
+## 当你发现有些Redis查询响应时间太长，如何排查？可能是什么引起的？
+## 你用到的或者了解的Redis的部署结构是什么？
+## 是否了解Redis的持久化策略，不同的策略有什么不同？
+## 说说你了解的Redis主从同步的策略。
+
+# 部署模块
+## 01.什么是Nginx
+`初级` `Nginx` <br><br>
+&#8195;&#8195;Nginx是一个高性能代理服务，接收客户端发送过来的HTTP请求和websocket请求，响应静态文件请求和转发动态请求。
+<br><br>[返回目录](#目录)
+<br><br>
+## 负载均衡什么意思
+## 如何部署Django项目
+## 为什么正式部署时不要开启DEBUG = True配置
 
 # 常用算法模块
 ## Python中字典类型的实现算法
@@ -1007,14 +1098,17 @@ return redirect(‘/index.html’)
 [返回目录](#目录) 
 <br><br>
 
-<span id = "jump"></span>
+
+
 # 其他模块 
 ## .介绍你项目的架构设计
-[返回目录](#目录) [前往框架层](#框架层)
+[返回目录](#目录) 
 <br><br>
+## .Tornado的核是什么
+`初级` `Django` <br><br>
 
 # 云服务模块 
 ## .你使用过哪些云服务技术？
-[返回目录](#jump)
+[返回目录](#目录)
 <br><br>
 
