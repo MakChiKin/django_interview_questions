@@ -6,7 +6,8 @@
 5. 此处会持续更新
 6. 若采纳问题或答案将会在此声明
 
-贡献者：MakChikin、
+贡献者列表：
+> MakChikin、
 
 
 [面试题库前往有道云浏览（推荐）](http://note.youdao.com/noteshare?id=c16d3e59263823bfc32ea00b95123882)  
