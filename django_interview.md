@@ -5,6 +5,274 @@
 [前往CSDN浏览](https://blog.csdn.net/weixin_41622043/article/details/103426652)  
 
 [TOC]
+# Python模块
+## 01.python中有哪些可变类型与不可变类型
+`初级` `Python`<br>
+- 可变类型：会在原来的内存地址上修改元素  比如： 列表，字典
+- 不可变类型：不会在原来的内存地址上修改元素，而是指向了新的内存引用  比如：整型，字符串，元组
+
+[返回目录](#目录) 
+<br><br>
+## 02.面向对象的3个特性是什么
+`初级` `Python`<br>
+1. 封装：根据职责将属性和方法封装到一个抽象的类中定义类的准则
+2. 继承：实现代码的重用，相同的代码不需要重复的编写
+3. 多态：不同的子类调用相同的父类，产生不同的结果
+
+[返回目录](#目录) 
+<br><br>
+## 03.简述数组，链表，队列，堆栈的区别
+`初级` `Python`<br><br>
+&#8195;&#8195;数组和链表是存储方式的概念，数组在连续的空间中存储数据，链表在非连续的空间中存储数据；<br>
+&#8195;&#8195;队列和堆栈是描述数据存取方法的概念，队列是先进先出，而堆栈是后进后出，队列和堆栈可以用链表来实现，也可以用数组来实现
+
+[返回目录](#目录) 
+<br><br>
+
+## 04.什么是闭包
+`高级` `Python`<br><br>
+&#8195;&#8195;闭包是由两个函数嵌套定义，内部函数里面用到了外部函数里面的变量值，那么这个变量（变量值）加上内部还是里面的代码组成的代码块，组成了一个新的内存空间，我们把这个空间叫做闭包。
+闭包 = 函数+环境变量（在函数定义的时候定义，它不是全局变量,这个环境变量一定要被内部函数调用才算是闭包）
+
+[答案来源](https://blog.csdn.net/weixin_41622043/article/details/88808314)
+<br>[返回目录](#目录) 
+<br><br>
+## 05.匿名函数/函数/闭包/对象在做实参时有什么区别
+`高级` `Python`
+1. **匿名函数**：能够完成基本的简单功能，传递是这个函数的引用，只有功能
+2. **普通函数**：能够完成比较普通的功能，传递是这个函数的引用，只有功能
+3. **闭包**：能够完成比较复杂的功能，传递是这个闭包中的函数和数据，因此传递是功能+数据
+4. **对象**：能够完成最为复杂的功能，传递是很多数据和很对功能，因此传递是功能+数据
+
+[返回目录](#目录) 
+<br><br>
+
+## 06.简述什么是进程、线程、协程
+`高级` `Python` <br>
+1. 进程是系统进行资源分配和调度的一个独立单位，一个程序至少有一个进程,一个进程至少有一个线程。
+2. 线程是进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但它可与同属一个进程的其他的线程共享进程所拥有的全部资源。线程不能够独立执行，必须依存在进程中
+3. 协程是一种比线程更加轻量级的存在，一个线程也可以拥有多个协程。
+
+## 07.简述进程、线程、协程三者的区别
+`高级` `Python` <br>
+1. 进程切换需要的资源很大，效率相对低
+2. 线程切换需要的资源一般，效率比进程高
+3. 协程切换任务资源很小，三者中效率最高
+4. 多进程、多线程根据CPU核数不一样可能是并行，但是协程是在一个线程中所以是并发。
+
+## 08.简述进程、线程、协程适用于那种应用场景类型
+`高级` `Python`
+- 计算密集型：用进程
+- IO密集型：用线程或协程
+
+[返回目录](#目录) 
+<br><br>
+## 09.协程为何比线程还快
+`高级` `Python`<br><br>
+&#8195;&#8195;高并发+高扩展性+低成本：一个CPU支持上万的协程都不是问题。所以很适合用于高并发处理协程能保留上一次调用时的状态，管是进程还是线程，每次阻塞、切换都需要陷入系统调用，使用线程时需要非常小心地处理同步问题，而协程完全不存在这个问题。
+
+[返回目录](#目录) 
+<br><br>
+## 10.什么是迭代器，为什么要使用它
+`高级` `Python`<br><br>
+&#8195;&#8195;可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator
+
+```
+from collections import Iterator
+
+def Iteror2():
+    '''迭代器原理'''
+    list = [1, 2, 3, 4]
+    it = iter(list)  # 创建迭代器
+    while True:
+        try:
+            print(next(it))
+        except StopIteration:
+            sys.exit()
+ 
+# 判断是否为迭代器
+isinstance((x for x in range(10)), Iterator)
+#>>> True
+```
+
+&#8195;&#8195;迭代是访问集合元素的一种方式。
+==迭代器保存的是获取数据的方式而不是结果，所以想用的时候就可以生成，节省大量内存空间，它是一个可以记住遍历的位置的对象。==
+迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。<br>&#8195;&#8195;迭代器有两个基本的方法：iter() 和 next()。
+字符串，列表或元组对象都可用于创建迭代器。
+
+
+
+[返回目录](#目录) 
+<br><br>
+## 11.什么是生成器，为什么要使用它
+`高级` `Python`<br><br>
+&#8195;&#8195;生成器定义在Python中,一边循环一边计算的机制，使用了 yield 的函数被称为生成器（generator）。
+跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个特殊的迭代器。
+在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，
+返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行。
+调用一个生成器函数，返回的是一个迭代器对象。
+```python
+list5 = [x for x in range(5)]
+print(list5)   #output：[0, 1, 2, 3, 4]
+```
+&#8195;&#8195;列表所有数据都在内存中，如果有海量数据的话将会非常耗内存。如仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。如果列表元素按照某种算法推算出来，那我们就可以在循环的过程中不断推算出后续的元素，这样就不必创建完整的list，从而节省大量的内存空间。<br>
+&#8195;&#8195;==简单一句话：我又想要得到庞大的数据，又想让它占用内存空间少，那就用生成器！== 生成器仅仅保存了一套生成数值的算法，并且没有让这个算法现在就开始执行，而是我什么时候调它，它什么时候开始计算一个新的值，并给你返回。
+
+[返回目录](#目录) 
+<br><br>
+
+## 12.简述迭代器、生成器的区别
+`高级` `Python`<br><br>
+&#8195;&#8195;能使用for遍历的就叫可迭代对象，能使用next方法的就是迭代器，生成器是特殊的迭代器。生成器能做到迭代器能做的所有事,而且因为自动创建了 iter()和 next()方法,生成器显得特别简洁和高效，使用生成器表达式取代列表解析可以同时节省内存空间。
+
+[返回目录](#目录) 
+<br><br>
+## 13.什么是装饰器，为什么要使用它
+`高级` `Python`<br><br>
+- 装饰器本质上是一个函数，这个函数的主要作用是包装另一个函数或类<br>包装的- 目的是在不改变原函数名的情况下改变被包装对象的行为。
+- 接收一个函数，内部对其包装，然后返回一个新函数，这样子动态的增强函数功能
+- 通过高阶函数传递函数参数，新函数添加旧函数的需求，然后执行旧函数。
+
+在django中middkeware中间件 其实就是高级的装饰器用法。
+
+
+[返回目录](#目录) 
+<br><br>
+## 14.什么是线程安全
+`高级` `Python`<br><br>
+线程安全：就是对于多线程同时操作是是安全的而不会发生写冲突,比如python的Queue<br>
+非线程安全：就是多线成同时操作时会发生写冲突,比如python的list,set,dict<br>
+[返回目录](#目录) 
+<br><br>
+## 15.标准库有哪些线程安全的队列
+`高级` `Python`<br><br>
+Python Queue模块有三种队列:
+1. FIFO队列先进先出.(线程安全)
+2. LifoQueue类似于堆,即先进后出(线程安全)
+3. PriorityQueue优先级队列,级别越低,越先出来(线程安全)
+
+对应的构造函数:
+1. class Queue.Queue(maxsize) FIFO
+2. class Queue.LifoQueue(maxsize) LIFO
+3. class Queue.PriorityQueue(maxsize) 优先级队列
+
+[返回目录](#目录) 
+<br><br>
+## 16.什么是GIL
+`高级` `Python`<br><br>
+&#8195;&#8195;GIL是python中的全局解释器锁，是不可控的，同一个进程中，假如有多个线程在运行，那么其中一个线程在运行的时候就会霸占GIL锁，就使得其他线程无法运行，等该线程运行结束以后，其他线程才能运行。如果线程中遇到耗时操作(I/O密集型任务)，则解释器锁会解开，使得其他线程运行，所以说在多线程中，线程的运行仍是有先后顺序的，并不是同时进行。<br><br>
+[返回目录](#目录) 
+<br><br>
+## 17.什么时候释放GIL锁
+`高级` `Python`<br><br>
+1. 时间片耗尽(cpu时间)
+2. 任务遇到I/O等待时
+3. 执行任务结束
+4. 执行到字节码阈值时
+
+[返回目录](#目录) 
+<br><br>
+
+## 18.互斥锁与GIL的区别
+`高级` `Python`<br><br>
+&#8195;&#8195;**互斥锁**是在多线程的情况下，确保当前线程执行完成后，再执行下一个任务，当前任务没有结束，下个任务会阻塞。
+
+&#8195;&#8195;**GIL**是保证同一时间只有1个线程在执行，但是该线程让出GIL的时，有可能并没完成该线程的任务，该线程的任务分多少次执行完成这个会安装GIL的默认策略。
+
+[返回目录](#目录) 
+<br><br>
+## 19.python高并发解决方案有哪些
+`高级` `Python`<br><br>
+- gevent
+代码看起来好看一些,但是维护比较差,patch没有规律,而且里面封装了C,对python3的支持最差.
+- twisted
+稳定性是最好的,但是需要较长时间的学习.对python3的支持较差.
+- tornado
+兼容性最好.但是过于简单了,功能不强,另外没有python数据库适配器能和tornado无缝对接,因此调用数据库很麻烦,而且只支持web.
+
+[返回目录](#目录) 
+<br><br>
+
+## 20.谈谈对不定⻓参数的理解
+`初级` `Python`<br><br>
+一般分为两种：
+- 一种是*args 位置参数 在定义函数时，在形参前面加一个*，代表可以接收任意多个实参，用元组类型保存所有数据。一般写成def function(*args)
+- 一种是**kwargs 命名参数 代表可以接收任意多个的命名参数，用字典类型保存。
+
+[返回目录](#目录) 
+<br><br>
+## 21.谈谈对缺省参数的理解
+`初级` `Python`<br><br>
+&#8195;&#8195;如果调用函数的时候，传递了对应位置的实参，那就使用这个传递的值，如果没有传递对应的值，那就使用缺省参数的值。
+
+[返回目录](#目录) 
+<br><br>
+## 22.break和continue的区别
+`初级` `Python`<br><br>
+- break和continue都是用于while嵌套循环中<br>
+- continue是结束内层的while循环，但并没有终止整个循环
+- break是结束整个while循环
+
+[返回目录](#目录) 
+<br><br>
+## 23.`is` 和 `==`的区别
+`高级` `Python`<br>
+- “==”仅判断A和B的值是否相等
+- is 不仅是会判断A和B的值是否相等，还会判断A和B的id是否一致
+
+[返回目录](#目录) 
+<br><br>
+## 24.`__new__()` 和 `__init__()`的区别
+`高级` `Python`<br><br> 
+&#8195;&#8195;_new_作用于_init_之前。前者可以决定是否调用后者，可以决定调用哪个类的_init_方法。
+
+[返回目录](#目录) 
+<br><br>    
+## 25.`range`和`xrange`的区别
+`初级` `Python` <br>  
+&#8195;&#8195;xrange和range 的用法完全相同，但是xrange返回的是一个生成器。<br>  
+[返回目录](#目录) 
+<br><br>  
+## 26. `yield`和`return`的相同点和区别
+`高级` `Python`<br><br>
+- 相同点：功能都是返回程序执行结果
+- 区别：yield返回执行结果并不中断程序执行，return在返回执行结果的同时中断程序执行。
+
+[返回目录](#目录) 
+<br><br>
+## 27.列举5个python常用标准库并说明其作用
+`初级` `Python`
+- os：提供不少于操作系统相关联的函数
+- sys：通常用于命令行参数
+- datetime：日期时间
+- re：正则匹配
+- math：数学运算
+
+[返回目录](#目录) 
+<br><br>
+## 28.列举10个常见的Linux命令
+`初级` `Linux`<br><br>
+
+```shell
+cd pwd touch ls mkdir rm help sudo ssh date clear vim ps cat more scp cp
+
+```
+
+[返回目录](#目录) 
+<br><br>
+## 29.谈谈你知道的几种设计模式
+`高级` `Python`<br>
+- 单例模式：保证一个类仅有一个实例，并提供一个访问他的全局访问点，例如框架中的数据库连接
+- 装饰器模式：不修改元类代码和继承的情况下动态扩展类的功能，例如框架中的每个controller文件会提供before和after方法。
+- 迭代器模式： 提供一个方法顺序访问一个聚合对象中各个元素，在PHP中将继承 Iterator 类
+- 命令模式: 将”请求”封闭成对象, 以便使用不同的请求,队列或者日志来参数化其他对象. 命令模式也支持可撤销的操作.
+
+[返回目录](#目录) 
+<br><br>
+
+
+
+
 # HTTP模块 
 ## 01.HTTP是什么
 `初级` `HTTP`
@@ -272,9 +540,14 @@ ACK:应答字段
 
 [返回目录](#目录)
 <br><br>
+## 12.TCP为什么会分包和粘包
+`高级` `TCP`<br><br>
+- TCP是以段（Segment）为单位发送数据的,建立TCP链接后,有一个最大消息长度（MSS）.如果应用层数据包超过MSS,就会把应用层数据包拆分,分成两个段来发送.这个时候接收端的应用层就要拼接这两个TCP包,才能正确处理数据.
+- 有时候,TCP为了提高网络的利用率,会使用一个叫做Nagle的算法.该算法是指,发送端即使有要发送的数据,如果很少的话,会延迟发送.如果应用层给TCP传送数据很快的话,就会把两个应用层数据包“粘”在一起,TCP最后只发一个TCP数据包给接收端.
 
-
-## 12.HTTP和websocket的区别
+[返回目录](#目录)
+<br><br>
+## 13.HTTP和websocket的区别
 `中级` `HTTP` `WEBSOCKET`<br><br>
 <img src="https://img-blog.csdnimg.cn/20191205123219258.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTYyMjA0Mw==,size_16,color_FFFFFF,t_70" width="750" height="400" alt="cookie" align=center>
 
@@ -290,7 +563,7 @@ ACK:应答字段
 <br><br>
 
 
-## 13.HTTP的长连接与websocket的持久连接的区别
+## 14.HTTP的长连接与websocket的持久连接的区别
 `高级` `HTTP` `WEBSOCKET`
 - **HTTP1.1的连接默认使用长连接**（persistent connection）
 
@@ -305,7 +578,7 @@ ACK:应答字段
 <br><br>
 
 
-## 14.什么是cookie？其特点和应用场景有哪些？其如何获取、设置？
+## 15.什么是cookie？其特点和应用场景有哪些？其如何获取、设置？
 `中级` `COOKIE` `PYTHON`<br><br>
 <img src="https://img-blog.csdnimg.cn/20190531164116532.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTYyMjA0Mw==,size_16,color_FFFFFF,t_70" width="500" height="300" alt="cookie" align=center>
 
@@ -328,7 +601,7 @@ request.COOKIES.get("is_login")  # 设置
 <br><br>
 
 
-## 15.什么是session？其特点和应用场景有哪些？其如何设置、获取、清空？
+## 16.什么是session？其特点和应用场景有哪些？其如何设置、获取、清空？
 `中级`  `SESSION` `PYTHON`<br><br>
 <img src="https://img-blog.csdnimg.cn/20190531161316354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTYyMjA0Mw==,size_16,color_FFFFFF,t_70" width="500" height="330" alt="cookie" align=center>
 
@@ -351,7 +624,7 @@ request.COOKIES.get("is_login")  # 设置
 <br><br>
 
 
-## 16.session和cookie的相同点和区别
+## 17.session和cookie的相同点和区别
 `中级` `SESSION` `COOKIE` 
 - **相同点**
 
@@ -374,7 +647,7 @@ request.COOKIES.get("is_login")  # 设置
 [返回目录](#目录)
 <br><br>
 
-## 17.什么是JWT，有什么特点
+## 18.什么是JWT，有什么特点
 `初级` `JWT` `cookie` `session` <br><br>
 &#8195;&#8195;JWT 全称 JSON Web Tokens，它定义了一种以JSON 对象形式的安全通信方法。它由头部、负载和签名3部分组成。它具有2个特点：
 - 简洁：可以通过URL, POST 参数或者在 HTTP header 发送，因为数据量小，传输速度快
@@ -385,7 +658,7 @@ request.COOKIES.get("is_login")  # 设置
 [返回目录](#目录)
 <br><br>
 
-## 18.简述JWT的工作原理
+## 19.简述JWT的工作原理
 `初级` `JWT` `cookie` `session` <br><br>
 <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly93dzMuc2luYWltZy5jbi9sYXJnZS8wMDZ0TmM3OWd5MWZidjYzcHpxb2NqMzBwajBoOHQ5bS5qcGc" width="700" height="450" align=center>
 
@@ -401,7 +674,7 @@ request.COOKIES.get("is_login")  # 设置
 [返回目录](#目录)
 <br><br>
 
-## 19.传统Session方式存储ID和JWT的区别
+## 20.传统Session方式存储ID和JWT的区别
 `初级` `JWT` `cookie` `session` <br><br>
 &#8195;&#8195;Session是保存在服务端的，而JWT是保存在客户端的。<br>&#8195;&#8195;Session方式存储用户id的最大弊病在于Session是存储在服务器端的，所以==需要占用大量服务器内存，对于较大型应用而言可能还要保存许多的状态。== 一般而言，大型应用还需要借助一些KV数据库和缓存机制来实现Session的存储。<br>&#8195;&#8195;==JWT方式将用户状态分散到了客户端中，可以减少服务器查询数据库的次数和减轻服务端的内存压力。== 除了用户id之外，还可以存储其他的和用户相关的信息，例如该用户是否是管理员、用户所在的分组等。虽说JWT方式让服务器有一些计算压力（例如加密、编码和解码），但是这些压力相比磁盘存储而言可能就不算什么了。具体是否采用，需要在不同场景下用数据说话。
 
@@ -788,64 +1061,191 @@ django.conf.urls url
 <br><br>
 
 
-### 02.Django的Model的继承有几种形式，分别是什么
+### 02.Django的Model的继承有几种形式
 `初级` `Django` <br><br>
+1. 用父类model来保存在子类model中重复的信息。父类model是不使用的也就是不生成单独的数据表，这种情况下使用抽象基类继承 Abstract base classes。
+2. 如从现有的model继承并让每个model都有自己的数据表，那么使用多重表继承 Multi-table inheritance。
+3. 如只在 model 中修改 Python 级的行为，而不涉及字段改变。 代理 model (Proxy models) 适用于这种场合
 
 [返回目录](#目录)
 <br><br>
 ### 03.class Meta中的元信息字段有哪些
 `初级` `Django` <br><br>
+1. Model类可以通过元信息类设置索引和排序信息
+2. 元信息是在Model类中定义一个Meta子类
+
+
+```python
+class Meta:
+    # ---常用
+    db_table = 'table_name'  # 自定义表名
+    index_together = ('tag1', 'tag2')  # 联合索引
+    unique_together = ('tag3', 'tag4')  # 联合唯一索引
+    verbose_name = 'table_name'  # /admin/中显示的表名称
+    verbose_name_plural = verbose_name 
+    ordering = 'ordering_tag'  # 排序字段#这个选项是指定，模型的复数形式是什么
+    abstract =True  # 抽象基类
+    
+    # ---非常用
+    # app_label这个选项只在一种情况下使用，就是你的模型类不在默认的应用程序包下的models.py文件中，
+    # 这时候你需要指定你这个模型类是那个应用程序的。
+    # 比如你在其他地方写了一个模型类，而这个模型类是属于myapp的
+    app_label='myapp'  
+    
+    # db_table 是用于指定自定义数据库表名的。
+    db_table='my_owner_table' 
+    
+    # 有些数据库有数据库表空间，比如Oracle。你可以通过db_tablespace来
+    # 指定这个模型对应的数据库表放在哪个数据库表空间。
+    db_tablespace
+    
+    # 由于Django的管理方法中有个lastest()方法，就是得到最近一行记录。
+    # 如果你的数据模型中有 DateField 或 DateTimeField 类型的字段，
+    # 你可以通过这个选项来指定lastest()是按照哪个字段进行选取的
+    get_latest_by = "order_date"
+    
+    # 由于Django会自动根据模型类生成映射的数据库表，如果你不希望Django这么做，可以把managed的值设置
+    # 为False。默认值为True,这个选项为True时Django可以对数据库表进行 migrate或migrations、
+    # 删除等操作。在这个时间Django将管理数据库中表的生命周期如果为False的时候，不会对数据库表进行
+    # 创建、删除等操作。可以用于现有表、数据库视图等，其他操作是一样的。
+    managed
+    
+    # permissions主要是为了在Django Admin管理模块下使用的，如果你设置了这个属性可以让
+    # 指定的方法权限描述更清晰可读。要创建一个对象所需要的额外的权限. 如果一个对象有 admin 设置,
+    # 则每个对象的添加,删除和改变权限会人(依据该选项)自动创建.
+    # 下面这个例子指定了一个附加权限: can_deliver_pizzas:
+    permissions = (("can_deliver_pizzas", "Can deliver pizzas"),)
+    
+    # 这个选项一般用于多对多的关系中，它指向一个关联对象。就是说关联对象找到这个对象后它是经过排序的。
+    # 指定这个属性后你会得到一个get_XXX_order()和set_XXX_order（）的方法,
+    # 通过它们你可以设置或者回去排序的对象。
+    order_with_respect_to = 'pizza'
+```
+[返回目录](#目录)
+<br><br>
+### 04.Django模型类关系有哪几种
+`初级` `Django` <br>
+- 一对一关系：OneToOneField
+- 一对多关系：ForeignKey
+- 多对多关系：ManyToManyField
 
 [返回目录](#目录)
 <br><br>
-### 04.如何给一个字段设置一个主键
+### 05.外键有什么用，什么时候合适使用外接，外键一定需要索引吗？
+`中级` `Django` <br>
+- 程序很难100％保证数据的完整性,而用外键即使在数据库服务器宕机或异常的时候,也能够最大限度的保证数据的一致性和完整性。
+- 如果项目性能要求不高,安全要求高,建议使用外键，如果项目性能要求高,安全自己控制，不用外键，因为外键查询比较慢。
+- 加入外键的主要问题就是影响性能,因此加入索引能加快关联查询的速度。
+
+[返回目录](#目录)
+<br><br>
+### 06.`Primary Key`和`Unique Key`的区别
+`中级` `Django` <br>
+- Primary key与Unique Key都是唯一性约束。
+- Primary key是主键，一个表只能由一个，Unique key是唯一键，一个表可以有多个唯一键字段。
+- Primary key 必须不能为空，Unique Key 可为空。
+
+[返回目录](#目录)
+<br><br>
+### 07.DateTimeField类型中的`auto_now`与`auto_now_add`有什么区别
 `初级` `Django` <br><br>
+- DateTimeField.auto_now ==用于记录更新时间==
+> 这个参数的默认值为false，设置为true时，能够在保存该字段时，将其值设置为当前时间，并且每次修改model，都会自动更新。因此这个参数在需要存储“最后修改时间”的场景下，十分方便。需要注意的是，设置该参数为true时，并不简单地意味着字段的默认值为当前时间，而是指字段会被“强制”更新到当前时间，你无法程序中手动为字段赋值；如果使用django再带的admin管理器，那么该字段在admin中是只读的。
+
+- DateTimeField.auto_now_add ==用于记录创建时间==
+> 这个参数的默认值也为False，设置为True时，会在model对象第一次被创建时，将字段的值设置为创建时的时间，以后修改对象时，字段的值不会再更新。该属性通常被用在存储“创建时间”的场景下。与auto_now类似，auto_now_add也具有强制性，一旦被设置为True，就无法在程序中手动为字段赋值，在admin中字段也会成为只读的。
 
 [返回目录](#目录)
 <br><br>
-### 05.如何设置一个带有枚举值的字典
+
+### 08.当删除一个外键的时候，其关联的表有几种处理方式
 `初级` `Django` <br><br>
+有6种处理方式：
+1. 同时删除父表和子表 
+2. 阻止删除父表
+3. 子表设置为空
+4. 子表设置为默认值
+5. 子表什么都不做
+6. 设置为一个传递给SET()的值或者一个回调函数的返回值
+
+> **CASCADE**：代表删除联级，父表（少类表）被删除的记录在子表（多类表）中所有字段也会被对应删除，模拟SQL语言中的ON DELETE CASCADE约束，将定义有外键的模型对象同时删除！（该操作为当前Django版本的默认操作！）
+
+> **PROTECT**：阻止上面的删除操作，但是弹出ProtectedError异常
+
+> **SET_NULL**：代表父表（少类表）被删除后子表（多类表）对应的外键字段会设置为null，只有当字段设置了null=True，blank=True时，方可使用该值。
+
+> **SET_DEFAULT**:代表父表（少类表）被删除后子表（多类表）对应的外键字段会设置为默认值。只有当字段设置了default参数时，方可使用。
+
+> **DO_NOTHING**：什么也不做，一切看数据库级别的约束
+
+> **SET()**：设置为一个传递给SET()的值或者一个回调函数的返回值。注意大小写，用得很少。
+
 
 [返回目录](#目录)
 <br><br>
-### 06.DateTimeField类型中的auto_now与auto_now_add有什么区别
-`初级` `Django` <br><br>
+### 09.如何通过外键，子表查询父表和父表查询子表
+`中级` `Django` <br><br>
+父表和子表关系如下：
+```python
+from django.db import models
+ 
+class Person(models.Model):
+    name = models.CharField(max_length=64)
+    age = models.IntegerField()
+    tel = models.CharField(max_length=64)
+ 
+    @property
+    def all_cars(self):
+        '''返回全部信息'''
+        return self.cars.all()
+ 
+    @property
+    def info(self):
+        '''返回部分信息'''
+        return '%s %s' % (self.name, self.tel)
+ 
+class Car(models.Model):
+    owner = models.Foreignkey(Person, related_name='cars')
+    name = models.CharField(max_length=64)
+    price = models.FloatField()
+```
+
+子表查询父表
+```
+car = Car.objects.get(id=1)
+# 查询该车的车主
+owner = car.owner
+```
+
+
+父表查询子表
+```
+Tom = Person.objects.get(id=1)
+# 查询此人有多少车
+# 方式一:
+# Django默认每个主表对象都有一个外键的属性，可以通过它来查询所有属于主表的子表信息
+# 查询方式：主表.子表_set()，返回值为一个queryset对象
+Tom.Car_set().all()
+# 方式二：
+# 通过在外键中设置related_name属性值既可
+Tom.cars.all()
+# 方式三：
+# 通过@property装饰器在model中预定义方法实现
+Tom.all_cars
+```
 
 [返回目录](#目录)
 <br><br>
-### 07.多对多关联的表，如何插入数据？如何删除数据？如何更新数据
-`初级` `Django` <br><br>
 
-[返回目录](#目录)
-<br><br>
-### 08.Django的M2M关系，如何手动生成第三张表
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 09.Django的Model中的ForeignKey字段中的on_delete参数有什么作用
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 10.Django中想验证表单提交是否格式正确需要用到Form中的哪个函数
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 11.当删除一个外键的时候，如何把与其关联的对应关系删除
-`初级` `Django` <br><br>
-
-[返回目录](#目录)
-<br><br>
-### 12.图书管理系统的表结构是怎么设计的
-`初级` `Django` <br><br>
+### 10.谈谈 GenericForeignkey 和 GenericRelation 
+`高级` `Django` <br><br>
+&#8195;&#8195;GenericForeignkey 和 GenericRelation 的方法能够解决多外键的表单产生的大量沉余数据。通过ContentType的查询，起到一个自动一对多的作用，能和任何模型都能连接起来，保证了代码的干净。避免了创建大量无用的空数据，有效减少存储空间和服务器压力。
 
 [返回目录](#目录)
 <br><br>
 
-### 13.django中怎么写原生SQL
-`初级` `Django`  `SQL`
+### 11.django中怎么写原生SQL
+`中级` `Django`  `SQL`
 
 1. 使用extra
 ```python
@@ -876,13 +1276,13 @@ cursor.fetchall()
 [返回目录](#目录)
 <br><br>
 
-### 02.谈一谈你对ORM的理解
-`初级`  `ORM` <br><br>
+### 12.谈一谈你对ORM的理解
+`中级`  `ORM` <br><br>
 **ORM**是“对象-关系-映射”的简称。
 
 &#8195;&#8195;ORM是MVC或者MVC框架中包括一个重要的部分，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动。
 
-### 14.如何使用Django ORM批量创建数据
+### 13.如何使用Django ORM批量创建数据
 `中级` `Django`  `ORM`
  
 可以使用`django.db.models.query.QuerySet.bulk_create()`批量创建对象，减少SQL查询次数。<br>
@@ -903,7 +1303,7 @@ Account.objects.bulk_create(querysetlist)
 [返回目录](#目录)
 <br><br>
 
-### 15.列举django ORM中操作QuerySet对象的方法(至少5个)
+### 14.列举django ORM中操作QuerySet对象的方法(至少5个)
 `初级` `Django`  `ORM`
 方法|作用
 ---|---
@@ -924,38 +1324,63 @@ distinct()|对查询集去重
 [返回目录](#目录)
 <br><br>
 
-### 16.ORM如何取消级联
+### 15.ORM如何取消级联
 `初级` `Django` <br><br>
+
+```python
+user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
+```
+在父表被删除，null为True的时候就会取消级联
 
 [返回目录](#目录)
 <br><br>
-### 17.查询集的2大特性？什么是惰性执行
-`初级` `Django` <br><br>
+### 16.查询集的2大特性？什么是惰性执行
+`中级` `Django` <br><br>
+特性：
+1. 惰性执行
+2. 缓存
+
+&#8195;&#8195;惰性执行是指创建查询集不会访问数据库，直到调用数据时，才会访问数据库。
 
 [返回目录](#目录)
 <br><br>
-### 18.查询集返回的列表过滤器有哪些
-`初级` `Django` <br><br>
+### 17.查询集返回的列表过滤器有哪些
+`中级` `Django` <br><br>
+all()：返回所有数据
+filter()：返回满足条件的数据
+exclude()：返回满足条件之外的数据，相当于sql语句中where部分的not关键字
+order_by()：排序
 
 [返回目录](#目录)
 <br><br>
-### 19.selected_related与prefetch_related有什么区别
-`初级` `Django` <br><br>
+### 18.selected_related与prefetch_related有什么区别
+`高级` `Django` <br><br>
+&#8195;&#8195;在Django中当创建一个查询集的时候，并没有跟数据库发生任何交互。因此我们可以对查询集进行级联的filter等操作，只有在访问Queryset的内容的时候，Django才会真正进行数据库的访问。而多频率、复杂的数据库查询往往是性能问题最大的根源。<br>&#8195;&#8195;不过我们实际开发中，往往需要访问到外键对象的其他属性。如果按照默认的查询方式去遍历取值，那么会造成多次的数据库查询，效率可想而知。<br><br>&#8195;&#8195;
+在查询对象集合的时候，把指定的外键对象也一并完整查询加载，避免后续的重复查询。使用 select_related() 和 prefetch_related() 可以很好的减少数据库请求的次数，从而提高性能。
+1. **select_related**适用于一对一字段（OneToOneField）和外键字段（ForeignKey）查询；
+2. **prefetch_related**适用多对多字段（ManyToManyField）和一对多字段的查询。（或许你会有疑问，没有一个叫OneToManyField的东西啊。实际上 ，ForeignKey就是一个多对一的字段，而被ForeignKey关联的字段就是一对多字段了）
 
 [返回目录](#目录)
 <br><br>
-### 20.values()与values_list()有什么区别
-`初级` `Django` <br><br>
+### 19.values()与values_list()有什么区别
+`初级` `Django` <br>
+- values : 读取字典的Queryset
+- values_list : 读取元组的Queryset
 
 [返回目录](#目录)
 <br><br>
-### 21.QueryDict和dict区别
-`初级` `Django` <br><br>
+### 20.QueryDict和dict区别
+`高级` `Django` <br><br>
+&#8195;&#8195;在HttpRequest对象中, GET和POST属性是django.http.QueryDict类的实例。QueryDict类似字典的自定义类，用来处理单键对应多值的情况。在 HttpRequest 对象中,属性 GET 和 POST 得到的都是 django.http.QueryDict 所创建的实例。这是一个django 自定义的类似字典的类，用来处理同一个键带多个值的情况。在 python 原始的字典中，当一个键出现多个值的时候会发生冲突，只保留最后一个值。而在 HTML 表单中，通常会发生一个键有多个值的情况，例如，多选框就是一个很常见情况。request.POST 和request.GET 的QueryDict 在一个正常的请求/响应循环中是不可变的。若要获得可变的版本，需要使用.copy()方法。
+- python dict当一个键出现多个值的时候会发生冲突，只保留最后一个值。
+- QueryDict是类似字典的自定义类，用来处理单键对应多值的情况。
+　　
 
 [返回目录](#目录)
 <br><br>
-### 22.Django中查询Q和F的区别
-`初级` `Django` `ORM`
+
+### 21.Django中查询Q和F的区别
+`中级` `Django` `ORM`
 - Q查询：对数据的多个字段联合查询（常和且或非"&|~"进行联合使用）
 - F查询：对数据的不同字段进行比较（常用于比较和更新，对数据进行加减操作）
 
@@ -1026,7 +1451,7 @@ return redirect(‘/index.html’)
 [返回目录](#目录)
 <br><br>
 
-### .基于函数的视图和基于类的视图之间的区别？你更喜欢哪一个？为什么？
+### 06.基于函数的视图和基于类的视图之间的区别？你更喜欢哪一个？为什么？
 
 
 ## 模板层
@@ -1047,10 +1472,7 @@ return redirect(‘/index.html’)
 &#8195;&#8195;如果用户在A应用服务器登陆的session数据没有共享到B应用服务器，那么之前的登录状态就没有了。<br><br>
 [返回目录](#目录)
 <br><br>
-### Tornado和Django区别
 
-[返回目录](#目录)
-<br><br>
 
 
 # 数据库模块
@@ -1079,7 +1501,7 @@ return redirect(‘/index.html’)
 ## 说说你了解的Redis主从同步的策略。
 
 # 部署模块
-## 01.什么是Nginx
+## 什么是Nginx
 `初级` `Nginx` <br><br>
 &#8195;&#8195;Nginx是一个高性能代理服务，接收客户端发送过来的HTTP请求和websocket请求，响应静态文件请求和转发动态请求。
 <br><br>[返回目录](#目录)
@@ -1101,14 +1523,28 @@ return redirect(‘/index.html’)
 
 
 # 其他模块 
-## .介绍你项目的架构设计
+## 01.介绍你项目的架构设计
 [返回目录](#目录) 
 <br><br>
-## .Tornado的核是什么
-`初级` `Django` <br><br>
+## 02.Tornado的核是什么
+`高级` `Tornado` <br><br>
+## 03.Tornado和Django区别
+`高级` `Tornado` <br><br>
 
+[返回目录](#目录)
+<br><br>
 # 云服务模块 
-## .你使用过哪些云服务技术？
+## 01.你使用过哪些云服务技术？
+`高级` `云` <br><br>
+[返回目录](#目录)
+<br><br>
+## 02.常用的云技术有哪些，请列举4个
+`高级` `云` <br><br>
+- ECS实例
+- OSS
+- RDS
+- CDN
+ 
 [返回目录](#目录)
 <br><br>
 
