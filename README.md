@@ -3,8 +3,8 @@
 [面试题库前往CSDN浏览](https://blog.csdn.net/weixin_41622043/article/details/103426652) 
 1. 题库已收集超过 **150** 道问答题,其中部分已包含专业答案，没有答案的题目，欢迎各位贡献答案.
 2. 题库包含：
-- python模块
-- http模块
+- Python模块
+- Http模块
 - Django模块（框架、URL、模型、视图、模板）
 - 数据库模块
 - 缓存模块
